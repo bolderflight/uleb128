@@ -1,0 +1,32 @@
+stages:
+  - lint
+  - build
+  - test
+
+Lint:
+  stage: lint
+  tags:
+    - bfs
+  script: 
+    - cpplint --verbose=0 include/uleb128/uleb128.h
+    - cpplint --verbose=0 src/uleb128/uleb128.cc
+
+Compile:
+  stage: build
+  tags:
+    - bfs
+  script:
+    - mkdir build
+    - cd build
+    - cmake ..
+    - make
+  artifacts:
+    paths:
+      - build/uleb128_test
+
+Test Uleb128:
+  stage: test
+  tags:
+    - bfs
+  script:
+    - ./build/uleb128_test
