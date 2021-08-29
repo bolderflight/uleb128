@@ -27,8 +27,6 @@
 #include <span>
 #include <cstdint>
 
-#include <iostream>
-
 namespace bfs {
 
 std::size_t EncodeUleb128(uint64_t val, std::span<uint8_t> data) {
