@@ -23,7 +23,7 @@
 * IN THE SOFTWARE.
 */
 
-#include "uleb128/uleb128.h"
+#include "uleb128.h"
 #include <iostream>
 
 int main() {
@@ -32,13 +32,13 @@ int main() {
   /* Try encoding and decoding the maximum uint64 value */
   uint64_t orig_val = std::numeric_limits<uint64_t>::max();
   std::cout << "Written value: " << orig_val << std::endl;
-  std::cout << "Bytes written: " << bfs::EncodeUleb128(orig_val, buf) << std::endl;
-  std::cout << "Bytes read: " << bfs::DecodeUleb128(buf, &read_val) << std::endl;
+  std::cout << "Bytes written: " << bfs::EncodeUleb128(orig_val, buf, sizeof(buf)) << std::endl;
+  std::cout << "Bytes read: " << bfs::DecodeUleb128(buf, sizeof(buf), &read_val) << std::endl;
   std::cout << "Read value: " << read_val << std::endl;
   /* Try encoding and decoding some random value */
   orig_val = 12345;
   std::cout << "Written value: " << orig_val << std::endl;
-  std::cout << "Bytes written: " << bfs::EncodeUleb128(orig_val, buf) << std::endl;
-  std::cout << "Bytes read: " << bfs::DecodeUleb128(buf, &read_val) << std::endl;
+  std::cout << "Bytes written: " << bfs::EncodeUleb128(orig_val, buf, sizeof(buf)) << std::endl;
+  std::cout << "Bytes read: " << bfs::DecodeUleb128(buf, sizeof(buf), &read_val) << std::endl;
   std::cout << "Read value: " << read_val << std::endl;
 }

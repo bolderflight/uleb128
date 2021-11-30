@@ -23,17 +23,35 @@
 * IN THE SOFTWARE.
 */
 
-#ifndef INCLUDE_ULEB128_ULEB128_H_
-#define INCLUDE_ULEB128_ULEB128_H_
+#include "uleb128.h"
+#include <limits>
 
-#include <span>
-#include <cstdint>
+void setup() {
+  Serial.begin(115200);
+  while (!Serial) {}
+  uint8_t buf[100];
+  uint64_t read_val = 0;
+  /* Try encoding and decoding the maximum uint64 value */
+  uint64_t orig_val = std::numeric_limits<uint64_t>::max();
+  Serial.print("Written value: ");
+  Serial.println(orig_val);
+  Serial.print("Bytes written: ");
+  Serial.println(bfs::EncodeUleb128(orig_val, buf, sizeof(buf)));
+  Serial.print("Bytes read: ");
+  Serial.println(bfs::DecodeUleb128(buf, sizeof(buf), &read_val));
+  Serial.print("Read value: ");
+  Serial.println(read_val);
+  /* Try encoding and decoding some random value */
+  orig_val = 12345;
+  Serial.print("Written value: ");
+  Serial.println(orig_val);
+  Serial.print("Bytes written: ");
+  Serial.println(bfs::EncodeUleb128(orig_val, buf, sizeof(buf)));
+  Serial.print("Bytes read: ");
+  Serial.println(bfs::DecodeUleb128(buf, sizeof(buf), &read_val));
+  Serial.print("Read value: ");
+  Serial.println(read_val);
+}
 
-namespace bfs {
+void loop() {}
 
-std::size_t EncodeUleb128(uint64_t val, std::span<uint8_t> data);
-std::size_t DecodeUleb128(std::span<const uint8_t> data, uint64_t * const val);
-
-}  // namespace bfs
-
-#endif  // INCLUDE_ULEB128_ULEB128_H_

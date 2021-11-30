@@ -23,17 +23,18 @@
 * IN THE SOFTWARE.
 */
 
-#include "uleb128/uleb128.h"
-#include <span>
+#include "uleb128.h"  // NOLINT
+#include <cstddef>
 #include <cstdint>
 
 namespace bfs {
 
-std::size_t EncodeUleb128(uint64_t val, std::span<uint8_t> data) {
+std::size_t EncodeUleb128(uint64_t val, uint8_t * const data,
+                          const std::size_t len) {
   std::size_t i = 0;
   do {
     /* Prevent buffer overflow */
-    if (i < data.size()) {
+    if (i < len) {
       uint8_t b = val & 0x7F;
       val >>= 7;
       if (val != 0) {
@@ -47,14 +48,15 @@ std::size_t EncodeUleb128(uint64_t val, std::span<uint8_t> data) {
   return i;
 }
 
-std::size_t DecodeUleb128(std::span<const uint8_t> data, uint64_t * const val) {
+std::size_t DecodeUleb128(uint8_t const * const data, const std::size_t len,
+                          uint64_t * const val) {
   /* Null pointer check */
   if (!val) {return 0;}
   uint64_t res = 0, shift = 0;
   std::size_t i = 0;
   while (1) {
     /* Prevent buffer overflow */
-    if (i < data.size()) {
+    if (i < len) {
       uint8_t b = data[i++];
       res |= (b & 0x7F) << shift;
       if (!(b & 0x80)) {break;}
