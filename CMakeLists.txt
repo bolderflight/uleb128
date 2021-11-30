@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 # Project information
 project(Uleb128
-  VERSION 1.0.2
+  VERSION 2.0.0
   DESCRIPTION "Unsigned little endian base 128 variable-length encoding."
   LANGUAGES CXX
 )
@@ -11,19 +11,19 @@ add_compile_options(
 )
 # Add the library target
 add_library(uleb128
-	include/uleb128/uleb128.h
-	src/uleb128/uleb128.cc
+	src/uleb128.h
+	src/uleb128.cpp
 )
 # Setup include directories 
 target_include_directories(uleb128 PUBLIC 
-	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
 	$<INSTALL_INTERFACE:include>
 )
 
 # Example and unit testing if this project is built separately
 if (PROJECT_NAME STREQUAL CMAKE_PROJECT_NAME)
 	# Add the example target
-	add_executable(uleb128_example examples/uleb128_example.cc)
+	add_executable(uleb128_example examples/cmake/uleb128_example.cc)
 	# Add the includes
 	target_include_directories(uleb128_example PUBLIC 
 		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -38,8 +38,8 @@ if (PROJECT_NAME STREQUAL CMAKE_PROJECT_NAME)
 	include(FetchContent)
 	FetchContent_Declare(
 		googletest
-		GIT_REPOSITORY 	https://github.com/google/googletest.git
-		GIT_TAG 				release-1.10.0
+		GIT_REPOSITORY https://github.com/google/googletest.git
+		GIT_TAG release-1.10.0
 	)
 	FetchContent_MakeAvailable(googletest)
 	enable_testing()

@@ -8,8 +8,8 @@ Lint:
   tags:
     - bfs
   script: 
-    - cpplint --verbose=0 include/uleb128/uleb128.h
-    - cpplint --verbose=0 src/uleb128/uleb128.cc
+    - cpplint --verbose=0 src/uleb128.h
+    - cpplint --verbose=0 src/uleb128.cpp
 
 Compile:
   stage: build
