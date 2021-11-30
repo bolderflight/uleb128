@@ -27,7 +27,7 @@ This library is within the namespace *bfs*.
 
 **std::size_t EncodeUleb128(uint64_t val, std::span<uint8_t> data)** Encodes a uint64_t *val* into a ULEB128 variable length format stored in the array viewed by the span *data*. Returns the number of bytes written if successful, otherwise, returns 0.
 
-**std::size_t DecodeUleb128(std::span<uint8_t> data, uint64_t &ast; const val)** Decodes a ULEB128 variable length value from the array viewed by the span *data* into a uint64_t variable *val*. Returns the number of bytes read if successful, otherwise, returns 0.
+**std::size_t DecodeUleb128(std::span<const uint8_t> data, uint64_t &ast; const val)** Decodes a ULEB128 variable length value from the array viewed by the span *data* into a uint64_t variable *val*. Returns the number of bytes read if successful, otherwise, returns 0.
 
 ```C++
 uint8_t buf[100];

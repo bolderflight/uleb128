@@ -32,7 +32,7 @@
 namespace bfs {
 
 std::size_t EncodeUleb128(uint64_t val, std::span<uint8_t> data);
-std::size_t DecodeUleb128(std::span<uint8_t> data, uint64_t * const val);
+std::size_t DecodeUleb128(std::span<const uint8_t> data, uint64_t * const val);
 
 }  // namespace bfs
 
