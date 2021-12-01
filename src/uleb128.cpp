@@ -23,6 +23,9 @@
 * IN THE SOFTWARE.
 */
 
+#if defined(ARDUINO)
+#include <Arduino.h>
+#endif
 #include "uleb128.h"  // NOLINT
 #include <cstddef>
 #include <cstdint>
