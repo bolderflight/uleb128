@@ -9,7 +9,6 @@ Lint:
     - bfs
   script: 
     - cpplint --verbose=0 src/uleb128.h
-    - cpplint --verbose=0 src/uleb128.cpp
 
 Compile:
   stage: build

@@ -35,9 +35,45 @@
 namespace bfs {
 
 std::size_t EncodeUleb128(uint64_t val, uint8_t * const data,
-                          const std::size_t len);
+                          const std::size_t len) {
+  if (!data) {return 0;}
+  std::size_t i = 0;
+  do {
+    /* Prevent buffer overflow */
+    if (i < len) {
+      uint8_t b = val & 0x7F;
+      val >>= 7;
+      if (val != 0) {
+        b |= 0x80;
+      }
+      data[i++] = b;
+    } else {
+      return 0;
+    }
+  } while (val != 0);
+  return i;
+}
+
 std::size_t DecodeUleb128(uint8_t const * const data, const std::size_t len,
-                          uint64_t * const val);
+                          uint64_t * const val) {
+  /* Null pointer check */
+  if ((!data) || (!val)) {return 0;}
+  uint64_t res = 0, shift = 0;
+  std::size_t i = 0;
+  while (1) {
+    /* Prevent buffer overflow */
+    if (i < len) {
+      uint8_t b = data[i++];
+      res |= (b & 0x7F) << shift;
+      if (!(b & 0x80)) {break;}
+      shift += 7;
+    } else {
+      return 0;
+    }
+  }
+  *val = res;
+  return i;
+}
 
 }  // namespace bfs
 

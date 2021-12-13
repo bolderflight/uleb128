@@ -1,24 +1,14 @@
 cmake_minimum_required(VERSION 3.13)
 # Project information
 project(Uleb128
-  VERSION 2.0.1
+  VERSION 2.1.0
   DESCRIPTION "Unsigned little endian base 128 variable-length encoding."
   LANGUAGES CXX
 )
-# Compile options
-add_compile_options(
-	$<$<COMPILE_LANGUAGE:CXX>:-std=c++20>
-)
 # Add the library target
-add_library(uleb128
-	src/uleb128.h
-	src/uleb128.cpp
-)
+add_library(uleb128 INTERFACE)
 # Setup include directories 
-target_include_directories(uleb128 PUBLIC 
-	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-	$<INSTALL_INTERFACE:include>
-)
+target_include_directories(uleb128 INTERFACE src/)
 
 # Example and unit testing if this project is built separately
 if (PROJECT_NAME STREQUAL CMAKE_PROJECT_NAME)
