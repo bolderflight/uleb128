@@ -25,6 +25,7 @@
 
 #include "uleb128.h"
 #include "gtest/gtest.h"
+#include <limits>
 
 /* Test minimum input */
 TEST(Uleb128, MinInput) {

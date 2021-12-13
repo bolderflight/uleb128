@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.1.0
+- Removed the C++20 requirement
+- Switched to header-only
+
 ## v2.0.1
 - Conditionally include Arduino header
 

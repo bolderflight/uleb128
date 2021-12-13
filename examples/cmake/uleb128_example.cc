@@ -24,6 +24,7 @@
 */
 
 #include "uleb128.h"
+#include <limits>
 #include <iostream>
 
 int main() {
