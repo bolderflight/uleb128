@@ -2,7 +2,7 @@
 * Brian R Taylor
 * brian.taylor@bolderflight.com
 * 
-* Copyright (c) 2021 Bolder Flight Systems Inc
+* Copyright (c) 2024 Bolder Flight Systems Inc
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the “Software”), to
@@ -64,7 +64,7 @@ std::size_t DecodeUleb128(uint8_t const * const data, const std::size_t len,
     /* Prevent buffer overflow */
     if (i < len) {
       uint8_t b = data[i++];
-      res |= (b & 0x7F) << shift;
+      res |= static_cast<uint64_t>(b & 0x7F) << shift;
       if (!(b & 0x80)) {break;}
       shift += 7;
     } else {

@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.1.2
+- Fix decoding overflow bug
+
 ## v2.1.1
 - Updated CMake minimum version to 3.14 to support FetchContent_MakeAvailable
 

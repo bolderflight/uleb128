@@ -2,7 +2,7 @@
 * Brian R Taylor
 * brian.taylor@bolderflight.com
 * 
-* Copyright (c) 2021 Bolder Flight Systems Inc
+* Copyright (c) 2024 Bolder Flight Systems Inc
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the “Software”), to
@@ -48,6 +48,17 @@ TEST(Uleb128, MaxInput) {
   EXPECT_EQ(10, bytes_written);
   EXPECT_EQ(10, bytes_read);
   EXPECT_EQ(std::numeric_limits<uint64_t>::max(), output);
+}
+/* Test input > 2^31 - 1 */
+TEST(Uleb128, RealMidInput) {
+  uint8_t buf[10];
+  uint64_t input = 2147483648ull;
+  uint64_t output = 0;
+  std::size_t bytes_written = bfs::EncodeUleb128(input, buf, sizeof(buf));
+  std::size_t bytes_read = bfs::DecodeUleb128(buf, sizeof(buf), &output);
+  EXPECT_EQ(5, bytes_written);
+  EXPECT_EQ(5, bytes_read);
+  EXPECT_EQ(input, output);
 }
 /* Test mid input */
 TEST(Uleb128, MidInput) {

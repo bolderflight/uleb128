@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 # Project information
 project(Uleb128
-  VERSION 2.1.1
+  VERSION 2.1.2
   DESCRIPTION "Unsigned little endian base 128 variable-length encoding."
   LANGUAGES CXX
 )
